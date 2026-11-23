@@ -1,0 +1,44 @@
+===== R14 RUN 1 =====
+GroupAggregate  (cost=12.85..14.25 rows=70 width=90) (actual time=0.016..0.017 rows=2 loops=1)
+  Group Key: report_type, status
+  Buffers: shared hit=1
+  ->  Sort  (cost=12.85..13.02 rows=70 width=82) (actual time=0.013..0.013 rows=2 loops=1)
+        Sort Key: report_type, status
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=1
+        ->  Seq Scan on item_reports r  (cost=0.00..10.70 rows=70 width=82) (actual time=0.003..0.003 rows=2 loops=1)
+              Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=5
+Planning Time: 0.026 ms
+Execution Time: 0.023 ms
+
+===== R14 RUN 2 =====
+GroupAggregate  (cost=12.85..14.25 rows=70 width=90) (actual time=0.009..0.009 rows=2 loops=1)
+  Group Key: report_type, status
+  Buffers: shared hit=1
+  ->  Sort  (cost=12.85..13.02 rows=70 width=82) (actual time=0.007..0.007 rows=2 loops=1)
+        Sort Key: report_type, status
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=1
+        ->  Seq Scan on item_reports r  (cost=0.00..10.70 rows=70 width=82) (actual time=0.001..0.002 rows=2 loops=1)
+              Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=5
+Planning Time: 0.017 ms
+Execution Time: 0.013 ms
+
+===== R14 RUN 3 =====
+GroupAggregate  (cost=12.85..14.25 rows=70 width=90) (actual time=0.007..0.007 rows=2 loops=1)
+  Group Key: report_type, status
+  Buffers: shared hit=1
+  ->  Sort  (cost=12.85..13.02 rows=70 width=82) (actual time=0.005..0.005 rows=2 loops=1)
+        Sort Key: report_type, status
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=1
+        ->  Seq Scan on item_reports r  (cost=0.00..10.70 rows=70 width=82) (actual time=0.001..0.001 rows=2 loops=1)
+              Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=5
+Planning Time: 0.013 ms
+Execution Time: 0.010 ms

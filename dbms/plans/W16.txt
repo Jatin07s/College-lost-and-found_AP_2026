@@ -1,0 +1,29 @@
+===== W16 RUN 1 =====
+Update on students s  (cost=0.14..8.16 rows=1 width=324) (actual time=0.019..0.019 rows=1 loops=1)
+  Buffers: shared hit=5
+  ->  Index Scan using students_college_email_key on students s  (cost=0.14..8.16 rows=1 width=324) (actual time=0.004..0.004 rows=1 loops=1)
+        Index Cond: ((college_email)::text = 'cp3.lost@example.invalid'::text)
+        Buffers: shared hit=2
+Planning Time: 0.015 ms
+Execution Time: 0.031 ms
+AP_CP4_FINISHED
+
+===== W16 RUN 2 =====
+Update on students s  (cost=0.14..8.16 rows=1 width=324) (actual time=0.015..0.016 rows=1 loops=1)
+  Buffers: shared hit=5
+  ->  Index Scan using students_college_email_key on students s  (cost=0.14..8.16 rows=1 width=324) (actual time=0.003..0.003 rows=1 loops=1)
+        Index Cond: ((college_email)::text = 'cp3.lost@example.invalid'::text)
+        Buffers: shared hit=2
+Planning Time: 0.015 ms
+Execution Time: 0.025 ms
+AP_CP4_FINISHED
+
+===== W16 RUN 3 =====
+Update on students s  (cost=0.14..8.16 rows=1 width=324) (actual time=0.010..0.010 rows=1 loops=1)
+  Buffers: shared hit=5
+  ->  Index Scan using students_college_email_key on students s  (cost=0.14..8.16 rows=1 width=324) (actual time=0.001..0.002 rows=1 loops=1)
+        Index Cond: ((college_email)::text = 'cp3.lost@example.invalid'::text)
+        Buffers: shared hit=2
+Planning Time: 0.008 ms
+Execution Time: 0.016 ms
+AP_CP4_FINISHED

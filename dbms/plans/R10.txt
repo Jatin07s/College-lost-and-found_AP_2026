@@ -1,0 +1,89 @@
+===== R10 RUN 1 =====
+Sort  (cost=41.63..41.64 rows=1 width=1208) (actual time=0.007..0.007 rows=0 loops=1)
+  Sort Key: oc.created_at, oc.claim_id
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=2
+  ->  Nested Loop  (cost=16.95..41.62 rows=1 width=1208) (actual time=0.006..0.006 rows=0 loops=1)
+        Buffers: shared hit=2
+        ->  Nested Loop  (cost=16.80..34.61 rows=1 width=798) (actual time=0.006..0.006 rows=0 loops=1)
+              Buffers: shared hit=2
+              ->  Hash Join  (cost=16.66..27.64 rows=1 width=488) (actual time=0.006..0.006 rows=0 loops=1)
+                    Hash Cond: (lost.report_id = oc.lost_report_id)
+                    Buffers: shared hit=2
+                    ->  Seq Scan on item_reports lost  (cost=0.00..10.70 rows=70 width=426) (actual time=0.002..0.002 rows=1 loops=1)
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=16.62..16.62 rows=3 width=78) (actual time=0.002..0.002 rows=0 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 8kB
+                          Buffers: shared hit=1
+                          ->  Seq Scan on ownership_claims oc  (cost=0.00..16.62 rows=3 width=78) (actual time=0.002..0.002 rows=0 loops=1)
+                                Filter: ((verification_status)::text = 'PENDING'::text)
+                                Rows Removed by Filter: 1
+                                Buffers: shared hit=1
+              ->  Index Scan using students_pkey on students claimant  (cost=0.14..6.83 rows=1 width=326) (never executed)
+                    Index Cond: (student_id = oc.claimant_student_id)
+        ->  Index Scan using item_reports_pkey on item_reports found  (cost=0.14..6.83 rows=1 width=426) (never executed)
+              Index Cond: (report_id = oc.found_report_id)
+Planning:
+  Buffers: shared hit=5
+Planning Time: 0.106 ms
+Execution Time: 0.024 ms
+
+===== R10 RUN 2 =====
+Sort  (cost=41.63..41.64 rows=1 width=1208) (actual time=0.006..0.006 rows=0 loops=1)
+  Sort Key: oc.created_at, oc.claim_id
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=2
+  ->  Nested Loop  (cost=16.95..41.62 rows=1 width=1208) (actual time=0.005..0.005 rows=0 loops=1)
+        Buffers: shared hit=2
+        ->  Nested Loop  (cost=16.80..34.61 rows=1 width=798) (actual time=0.005..0.005 rows=0 loops=1)
+              Buffers: shared hit=2
+              ->  Hash Join  (cost=16.66..27.64 rows=1 width=488) (actual time=0.005..0.005 rows=0 loops=1)
+                    Hash Cond: (lost.report_id = oc.lost_report_id)
+                    Buffers: shared hit=2
+                    ->  Seq Scan on item_reports lost  (cost=0.00..10.70 rows=70 width=426) (actual time=0.002..0.002 rows=1 loops=1)
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=16.62..16.62 rows=3 width=78) (actual time=0.002..0.002 rows=0 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 8kB
+                          Buffers: shared hit=1
+                          ->  Seq Scan on ownership_claims oc  (cost=0.00..16.62 rows=3 width=78) (actual time=0.002..0.002 rows=0 loops=1)
+                                Filter: ((verification_status)::text = 'PENDING'::text)
+                                Rows Removed by Filter: 1
+                                Buffers: shared hit=1
+              ->  Index Scan using students_pkey on students claimant  (cost=0.14..6.83 rows=1 width=326) (never executed)
+                    Index Cond: (student_id = oc.claimant_student_id)
+        ->  Index Scan using item_reports_pkey on item_reports found  (cost=0.14..6.83 rows=1 width=426) (never executed)
+              Index Cond: (report_id = oc.found_report_id)
+Planning:
+  Buffers: shared hit=5
+Planning Time: 0.086 ms
+Execution Time: 0.020 ms
+
+===== R10 RUN 3 =====
+Sort  (cost=41.63..41.64 rows=1 width=1208) (actual time=0.003..0.003 rows=0 loops=1)
+  Sort Key: oc.created_at, oc.claim_id
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=2
+  ->  Nested Loop  (cost=16.95..41.62 rows=1 width=1208) (actual time=0.003..0.003 rows=0 loops=1)
+        Buffers: shared hit=2
+        ->  Nested Loop  (cost=16.80..34.61 rows=1 width=798) (actual time=0.002..0.003 rows=0 loops=1)
+              Buffers: shared hit=2
+              ->  Hash Join  (cost=16.66..27.64 rows=1 width=488) (actual time=0.002..0.003 rows=0 loops=1)
+                    Hash Cond: (lost.report_id = oc.lost_report_id)
+                    Buffers: shared hit=2
+                    ->  Seq Scan on item_reports lost  (cost=0.00..10.70 rows=70 width=426) (actual time=0.001..0.001 rows=1 loops=1)
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=16.62..16.62 rows=3 width=78) (actual time=0.001..0.001 rows=0 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 8kB
+                          Buffers: shared hit=1
+                          ->  Seq Scan on ownership_claims oc  (cost=0.00..16.62 rows=3 width=78) (actual time=0.001..0.001 rows=0 loops=1)
+                                Filter: ((verification_status)::text = 'PENDING'::text)
+                                Rows Removed by Filter: 1
+                                Buffers: shared hit=1
+              ->  Index Scan using students_pkey on students claimant  (cost=0.14..6.83 rows=1 width=326) (never executed)
+                    Index Cond: (student_id = oc.claimant_student_id)
+        ->  Index Scan using item_reports_pkey on item_reports found  (cost=0.14..6.83 rows=1 width=426) (never executed)
+              Index Cond: (report_id = oc.found_report_id)
+Planning:
+  Buffers: shared hit=5
+Planning Time: 0.046 ms
+Execution Time: 0.011 ms

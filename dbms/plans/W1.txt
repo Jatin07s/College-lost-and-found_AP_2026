@@ -1,0 +1,29 @@
+===== W1 RUN 1 =====
+Insert on students  (cost=0.00..0.01 rows=1 width=850) (actual time=0.441..0.442 rows=1 loops=1)
+  Buffers: shared hit=68 dirtied=3
+  ->  Result  (cost=0.00..0.01 rows=1 width=850) (actual time=0.081..0.081 rows=1 loops=1)
+        Buffers: shared hit=10 dirtied=1
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.140 ms
+Execution Time: 0.477 ms
+
+===== W1 RUN 2 =====
+Insert on students  (cost=0.00..0.01 rows=1 width=850) (actual time=0.306..0.307 rows=1 loops=1)
+  Buffers: shared hit=68
+  ->  Result  (cost=0.00..0.01 rows=1 width=850) (actual time=0.040..0.041 rows=1 loops=1)
+        Buffers: shared hit=10
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.105 ms
+Execution Time: 0.334 ms
+
+===== W1 RUN 3 =====
+Insert on students  (cost=0.00..0.01 rows=1 width=850) (actual time=0.254..0.255 rows=1 loops=1)
+  Buffers: shared hit=68
+  ->  Result  (cost=0.00..0.01 rows=1 width=850) (actual time=0.034..0.034 rows=1 loops=1)
+        Buffers: shared hit=10
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.087 ms
+Execution Time: 0.277 ms

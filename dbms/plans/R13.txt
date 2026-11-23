@@ -1,0 +1,125 @@
+===== R13 RUN 1 =====
+Sort  (cost=90.76..91.47 rows=284 width=1102) (actual time=0.038..0.039 rows=1 loops=1)
+  Sort Key: h.handed_over_at DESC, h.handover_id DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=5
+  ->  Hash Join  (cost=54.67..79.19 rows=284 width=1102) (actual time=0.036..0.037 rows=1 loops=1)
+        Hash Cond: (h.received_by_student_id = receiver.student_id)
+        Buffers: shared hit=5
+        ->  Hash Join  (cost=42.65..66.40 rows=284 width=792) (actual time=0.030..0.031 rows=1 loops=1)
+              Hash Cond: (h.handed_over_by_student_id = giver.student_id)
+              Buffers: shared hit=4
+              ->  Hash Join  (cost=30.62..53.62 rows=284 width=482) (actual time=0.022..0.023 rows=1 loops=1)
+                    Hash Cond: (h.claim_id = oc.claim_id)
+                    Buffers: shared hit=3
+                    ->  Seq Scan on handovers h  (cost=0.00..18.10 rows=810 width=72) (actual time=0.001..0.001 rows=1 loops=1)
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=28.30..28.30 rows=186 width=426) (actual time=0.015..0.015 rows=1 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                          Buffers: shared hit=2
+                          ->  Hash Join  (cost=11.57..28.30 rows=186 width=426) (actual time=0.013..0.013 rows=1 loops=1)
+                                Hash Cond: (oc.found_report_id = found.report_id)
+                                Buffers: shared hit=2
+                                ->  Seq Scan on ownership_claims oc  (cost=0.00..15.30 rows=530 width=16) (actual time=0.001..0.002 rows=1 loops=1)
+                                      Buffers: shared hit=1
+                                ->  Hash  (cost=10.70..10.70 rows=70 width=426) (actual time=0.005..0.005 rows=2 loops=1)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                      Buffers: shared hit=1
+                                      ->  Seq Scan on item_reports found  (cost=0.00..10.70 rows=70 width=426) (actual time=0.002..0.002 rows=2 loops=1)
+                                            Buffers: shared hit=1
+              ->  Hash  (cost=10.90..10.90 rows=90 width=326) (actual time=0.003..0.003 rows=3 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on students giver  (cost=0.00..10.90 rows=90 width=326) (actual time=0.002..0.002 rows=3 loops=1)
+                          Buffers: shared hit=1
+        ->  Hash  (cost=10.90..10.90 rows=90 width=326) (actual time=0.005..0.005 rows=3 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on students receiver  (cost=0.00..10.90 rows=90 width=326) (actual time=0.003..0.003 rows=3 loops=1)
+                    Buffers: shared hit=1
+Planning Time: 0.157 ms
+Execution Time: 0.058 ms
+
+===== R13 RUN 2 =====
+Sort  (cost=90.76..91.47 rows=284 width=1102) (actual time=0.025..0.026 rows=1 loops=1)
+  Sort Key: h.handed_over_at DESC, h.handover_id DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=5
+  ->  Hash Join  (cost=54.67..79.19 rows=284 width=1102) (actual time=0.023..0.024 rows=1 loops=1)
+        Hash Cond: (h.received_by_student_id = receiver.student_id)
+        Buffers: shared hit=5
+        ->  Hash Join  (cost=42.65..66.40 rows=284 width=792) (actual time=0.019..0.020 rows=1 loops=1)
+              Hash Cond: (h.handed_over_by_student_id = giver.student_id)
+              Buffers: shared hit=4
+              ->  Hash Join  (cost=30.62..53.62 rows=284 width=482) (actual time=0.015..0.015 rows=1 loops=1)
+                    Hash Cond: (h.claim_id = oc.claim_id)
+                    Buffers: shared hit=3
+                    ->  Seq Scan on handovers h  (cost=0.00..18.10 rows=810 width=72) (actual time=0.001..0.001 rows=1 loops=1)
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=28.30..28.30 rows=186 width=426) (actual time=0.010..0.010 rows=1 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                          Buffers: shared hit=2
+                          ->  Hash Join  (cost=11.57..28.30 rows=186 width=426) (actual time=0.009..0.009 rows=1 loops=1)
+                                Hash Cond: (oc.found_report_id = found.report_id)
+                                Buffers: shared hit=2
+                                ->  Seq Scan on ownership_claims oc  (cost=0.00..15.30 rows=530 width=16) (actual time=0.001..0.001 rows=1 loops=1)
+                                      Buffers: shared hit=1
+                                ->  Hash  (cost=10.70..10.70 rows=70 width=426) (actual time=0.003..0.003 rows=2 loops=1)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                      Buffers: shared hit=1
+                                      ->  Seq Scan on item_reports found  (cost=0.00..10.70 rows=70 width=426) (actual time=0.002..0.002 rows=2 loops=1)
+                                            Buffers: shared hit=1
+              ->  Hash  (cost=10.90..10.90 rows=90 width=326) (actual time=0.002..0.002 rows=3 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on students giver  (cost=0.00..10.90 rows=90 width=326) (actual time=0.001..0.001 rows=3 loops=1)
+                          Buffers: shared hit=1
+        ->  Hash  (cost=10.90..10.90 rows=90 width=326) (actual time=0.003..0.003 rows=3 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on students receiver  (cost=0.00..10.90 rows=90 width=326) (actual time=0.002..0.002 rows=3 loops=1)
+                    Buffers: shared hit=1
+Planning Time: 0.082 ms
+Execution Time: 0.038 ms
+
+===== R13 RUN 3 =====
+Sort  (cost=90.76..91.47 rows=284 width=1102) (actual time=0.021..0.022 rows=1 loops=1)
+  Sort Key: h.handed_over_at DESC, h.handover_id DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=5
+  ->  Hash Join  (cost=54.67..79.19 rows=284 width=1102) (actual time=0.020..0.021 rows=1 loops=1)
+        Hash Cond: (h.received_by_student_id = receiver.student_id)
+        Buffers: shared hit=5
+        ->  Hash Join  (cost=42.65..66.40 rows=284 width=792) (actual time=0.017..0.018 rows=1 loops=1)
+              Hash Cond: (h.handed_over_by_student_id = giver.student_id)
+              Buffers: shared hit=4
+              ->  Hash Join  (cost=30.62..53.62 rows=284 width=482) (actual time=0.011..0.011 rows=1 loops=1)
+                    Hash Cond: (h.claim_id = oc.claim_id)
+                    Buffers: shared hit=3
+                    ->  Seq Scan on handovers h  (cost=0.00..18.10 rows=810 width=72) (actual time=0.001..0.001 rows=1 loops=1)
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=28.30..28.30 rows=186 width=426) (actual time=0.007..0.007 rows=1 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                          Buffers: shared hit=2
+                          ->  Hash Join  (cost=11.57..28.30 rows=186 width=426) (actual time=0.006..0.006 rows=1 loops=1)
+                                Hash Cond: (oc.found_report_id = found.report_id)
+                                Buffers: shared hit=2
+                                ->  Seq Scan on ownership_claims oc  (cost=0.00..15.30 rows=530 width=16) (actual time=0.001..0.001 rows=1 loops=1)
+                                      Buffers: shared hit=1
+                                ->  Hash  (cost=10.70..10.70 rows=70 width=426) (actual time=0.002..0.002 rows=2 loops=1)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                      Buffers: shared hit=1
+                                      ->  Seq Scan on item_reports found  (cost=0.00..10.70 rows=70 width=426) (actual time=0.001..0.001 rows=2 loops=1)
+                                            Buffers: shared hit=1
+              ->  Hash  (cost=10.90..10.90 rows=90 width=326) (actual time=0.001..0.001 rows=3 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on students giver  (cost=0.00..10.90 rows=90 width=326) (actual time=0.001..0.001 rows=3 loops=1)
+                          Buffers: shared hit=1
+        ->  Hash  (cost=10.90..10.90 rows=90 width=326) (actual time=0.002..0.002 rows=3 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on students receiver  (cost=0.00..10.90 rows=90 width=326) (actual time=0.001..0.001 rows=3 loops=1)
+                    Buffers: shared hit=1
+Planning Time: 0.076 ms
+Execution Time: 0.030 ms

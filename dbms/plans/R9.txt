@@ -1,0 +1,77 @@
+===== R9 RUN 1 =====
+Sort  (cost=24.43..24.45 rows=9 width=1012) (actual time=0.013..0.014 rows=1 loops=1)
+  Sort Key: pm.match_score DESC, found.report_id
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=5
+  ->  Nested Loop  (cost=4.32..24.28 rows=9 width=1012) (actual time=0.010..0.012 rows=1 loops=1)
+        Buffers: shared hit=5
+        ->  Nested Loop  (cost=4.17..22.19 rows=9 width=78) (actual time=0.008..0.009 rows=1 loops=1)
+              Buffers: shared hit=3
+              ->  Seq Scan on item_reports lost  (cost=0.00..10.88 rows=1 width=8) (actual time=0.003..0.003 rows=1 loops=1)
+                    Filter: ((title)::text = 'CP3 Demo Black Backpack'::text)
+                    Rows Removed by Filter: 1
+                    Buffers: shared hit=1
+              ->  Bitmap Heap Scan on possible_matches pm  (cost=4.17..11.28 rows=3 width=86) (actual time=0.003..0.004 rows=1 loops=1)
+                    Recheck Cond: (lost_report_id = lost.report_id)
+                    Heap Blocks: exact=1
+                    Buffers: shared hit=2
+                    ->  Bitmap Index Scan on possible_matches_pk  (cost=0.00..4.17 rows=3 width=0) (actual time=0.002..0.002 rows=1 loops=1)
+                          Index Cond: (lost_report_id = lost.report_id)
+                          Buffers: shared hit=1
+        ->  Index Scan using item_reports_pkey on item_reports found  (cost=0.14..0.23 rows=1 width=942) (actual time=0.001..0.001 rows=1 loops=1)
+              Index Cond: (report_id = pm.found_report_id)
+              Buffers: shared hit=2
+Planning Time: 0.099 ms
+Execution Time: 0.029 ms
+
+===== R9 RUN 2 =====
+Sort  (cost=24.43..24.45 rows=9 width=1012) (actual time=0.009..0.009 rows=1 loops=1)
+  Sort Key: pm.match_score DESC, found.report_id
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=5
+  ->  Nested Loop  (cost=4.32..24.28 rows=9 width=1012) (actual time=0.007..0.008 rows=1 loops=1)
+        Buffers: shared hit=5
+        ->  Nested Loop  (cost=4.17..22.19 rows=9 width=78) (actual time=0.005..0.006 rows=1 loops=1)
+              Buffers: shared hit=3
+              ->  Seq Scan on item_reports lost  (cost=0.00..10.88 rows=1 width=8) (actual time=0.002..0.002 rows=1 loops=1)
+                    Filter: ((title)::text = 'CP3 Demo Black Backpack'::text)
+                    Rows Removed by Filter: 1
+                    Buffers: shared hit=1
+              ->  Bitmap Heap Scan on possible_matches pm  (cost=4.17..11.28 rows=3 width=86) (actual time=0.002..0.002 rows=1 loops=1)
+                    Recheck Cond: (lost_report_id = lost.report_id)
+                    Heap Blocks: exact=1
+                    Buffers: shared hit=2
+                    ->  Bitmap Index Scan on possible_matches_pk  (cost=0.00..4.17 rows=3 width=0) (actual time=0.001..0.001 rows=1 loops=1)
+                          Index Cond: (lost_report_id = lost.report_id)
+                          Buffers: shared hit=1
+        ->  Index Scan using item_reports_pkey on item_reports found  (cost=0.14..0.23 rows=1 width=942) (actual time=0.001..0.001 rows=1 loops=1)
+              Index Cond: (report_id = pm.found_report_id)
+              Buffers: shared hit=2
+Planning Time: 0.066 ms
+Execution Time: 0.019 ms
+
+===== R9 RUN 3 =====
+Sort  (cost=24.43..24.45 rows=9 width=1012) (actual time=0.006..0.006 rows=1 loops=1)
+  Sort Key: pm.match_score DESC, found.report_id
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=5
+  ->  Nested Loop  (cost=4.32..24.28 rows=9 width=1012) (actual time=0.005..0.005 rows=1 loops=1)
+        Buffers: shared hit=5
+        ->  Nested Loop  (cost=4.17..22.19 rows=9 width=78) (actual time=0.004..0.004 rows=1 loops=1)
+              Buffers: shared hit=3
+              ->  Seq Scan on item_reports lost  (cost=0.00..10.88 rows=1 width=8) (actual time=0.001..0.001 rows=1 loops=1)
+                    Filter: ((title)::text = 'CP3 Demo Black Backpack'::text)
+                    Rows Removed by Filter: 1
+                    Buffers: shared hit=1
+              ->  Bitmap Heap Scan on possible_matches pm  (cost=4.17..11.28 rows=3 width=86) (actual time=0.002..0.002 rows=1 loops=1)
+                    Recheck Cond: (lost_report_id = lost.report_id)
+                    Heap Blocks: exact=1
+                    Buffers: shared hit=2
+                    ->  Bitmap Index Scan on possible_matches_pk  (cost=0.00..4.17 rows=3 width=0) (actual time=0.001..0.001 rows=1 loops=1)
+                          Index Cond: (lost_report_id = lost.report_id)
+                          Buffers: shared hit=1
+        ->  Index Scan using item_reports_pkey on item_reports found  (cost=0.14..0.23 rows=1 width=942) (actual time=0.001..0.001 rows=1 loops=1)
+              Index Cond: (report_id = pm.found_report_id)
+              Buffers: shared hit=2
+Planning Time: 0.039 ms
+Execution Time: 0.012 ms

@@ -1,0 +1,95 @@
+===== W10 RUN 1 =====
+Insert on ownership_claims  (cost=8.46..21.73 rows=1 width=126) (actual time=0.386..0.390 rows=1 loops=1)
+  Buffers: shared hit=32 dirtied=3
+  ->  Nested Loop  (cost=8.46..21.73 rows=1 width=126) (actual time=0.125..0.129 rows=1 loops=1)
+        Buffers: shared hit=16 dirtied=1
+        ->  Nested Loop  (cost=8.32..19.99 rows=7 width=24) (actual time=0.068..0.071 rows=1 loops=1)
+              Buffers: shared hit=5
+              ->  Hash Join  (cost=8.17..19.07 rows=1 width=16) (actual time=0.037..0.039 rows=1 loops=1)
+                    Hash Cond: (lost.student_id = claimant.student_id)
+                    Buffers: shared hit=3
+                    ->  Seq Scan on item_reports lost  (cost=0.00..10.70 rows=70 width=16) (actual time=0.005..0.005 rows=2 loops=1)
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=8.16..8.16 rows=1 width=8) (actual time=0.021..0.021 rows=1 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                          Buffers: shared hit=2
+                          ->  Index Scan using students_college_email_key on students claimant  (cost=0.14..8.16 rows=1 width=8) (actual time=0.012..0.012 rows=1 loops=1)
+                                Index Cond: ((college_email)::text = 'cp3.lost@example.invalid'::text)
+                                Buffers: shared hit=2
+              ->  Index Only Scan using possible_matches_pk on possible_matches pm  (cost=0.15..0.89 rows=3 width=16) (actual time=0.029..0.029 rows=1 loops=1)
+                    Index Cond: (lost_report_id = lost.report_id)
+                    Heap Fetches: 1
+                    Buffers: shared hit=2
+        ->  Index Scan using item_reports_pkey on item_reports found  (cost=0.14..0.24 rows=1 width=8) (actual time=0.003..0.003 rows=1 loops=1)
+              Index Cond: (report_id = pm.found_report_id)
+              Filter: ((title)::text = 'CP3 Demo Found Backpack'::text)
+              Buffers: shared hit=2
+Planning Time: 0.267 ms
+Trigger for constraint ownership_claims_claimant_student_id_fkey: time=0.105 calls=1
+Trigger for constraint ownership_claims_verified_by_student_id_fkey: time=0.008 calls=1
+Trigger for constraint ownership_claims_match_fk: time=0.073 calls=1
+Execution Time: 0.612 ms
+
+===== W10 RUN 2 =====
+Insert on ownership_claims  (cost=8.46..21.73 rows=1 width=126) (actual time=0.204..0.207 rows=1 loops=1)
+  Buffers: shared hit=32
+  ->  Nested Loop  (cost=8.46..21.73 rows=1 width=126) (actual time=0.072..0.075 rows=1 loops=1)
+        Buffers: shared hit=16
+        ->  Nested Loop  (cost=8.32..19.99 rows=7 width=24) (actual time=0.031..0.033 rows=1 loops=1)
+              Buffers: shared hit=5
+              ->  Hash Join  (cost=8.17..19.07 rows=1 width=16) (actual time=0.018..0.020 rows=1 loops=1)
+                    Hash Cond: (lost.student_id = claimant.student_id)
+                    Buffers: shared hit=3
+                    ->  Seq Scan on item_reports lost  (cost=0.00..10.70 rows=70 width=16) (actual time=0.003..0.003 rows=2 loops=1)
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=8.16..8.16 rows=1 width=8) (actual time=0.010..0.010 rows=1 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                          Buffers: shared hit=2
+                          ->  Index Scan using students_college_email_key on students claimant  (cost=0.14..8.16 rows=1 width=8) (actual time=0.005..0.005 rows=1 loops=1)
+                                Index Cond: ((college_email)::text = 'cp3.lost@example.invalid'::text)
+                                Buffers: shared hit=2
+              ->  Index Only Scan using possible_matches_pk on possible_matches pm  (cost=0.15..0.89 rows=3 width=16) (actual time=0.011..0.012 rows=1 loops=1)
+                    Index Cond: (lost_report_id = lost.report_id)
+                    Heap Fetches: 1
+                    Buffers: shared hit=2
+        ->  Index Scan using item_reports_pkey on item_reports found  (cost=0.14..0.24 rows=1 width=8) (actual time=0.002..0.002 rows=1 loops=1)
+              Index Cond: (report_id = pm.found_report_id)
+              Filter: ((title)::text = 'CP3 Demo Found Backpack'::text)
+              Buffers: shared hit=2
+Planning Time: 0.152 ms
+Trigger for constraint ownership_claims_claimant_student_id_fkey: time=0.056 calls=1
+Trigger for constraint ownership_claims_verified_by_student_id_fkey: time=0.005 calls=1
+Trigger for constraint ownership_claims_match_fk: time=0.045 calls=1
+Execution Time: 0.334 ms
+
+===== W10 RUN 3 =====
+Insert on ownership_claims  (cost=8.46..21.73 rows=1 width=126) (actual time=0.167..0.170 rows=1 loops=1)
+  Buffers: shared hit=32
+  ->  Nested Loop  (cost=8.46..21.73 rows=1 width=126) (actual time=0.051..0.054 rows=1 loops=1)
+        Buffers: shared hit=16
+        ->  Nested Loop  (cost=8.32..19.99 rows=7 width=24) (actual time=0.026..0.028 rows=1 loops=1)
+              Buffers: shared hit=5
+              ->  Hash Join  (cost=8.17..19.07 rows=1 width=16) (actual time=0.017..0.019 rows=1 loops=1)
+                    Hash Cond: (lost.student_id = claimant.student_id)
+                    Buffers: shared hit=3
+                    ->  Seq Scan on item_reports lost  (cost=0.00..10.70 rows=70 width=16) (actual time=0.002..0.002 rows=2 loops=1)
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=8.16..8.16 rows=1 width=8) (actual time=0.009..0.009 rows=1 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                          Buffers: shared hit=2
+                          ->  Index Scan using students_college_email_key on students claimant  (cost=0.14..8.16 rows=1 width=8) (actual time=0.004..0.005 rows=1 loops=1)
+                                Index Cond: ((college_email)::text = 'cp3.lost@example.invalid'::text)
+                                Buffers: shared hit=2
+              ->  Index Only Scan using possible_matches_pk on possible_matches pm  (cost=0.15..0.89 rows=3 width=16) (actual time=0.008..0.009 rows=1 loops=1)
+                    Index Cond: (lost_report_id = lost.report_id)
+                    Heap Fetches: 1
+                    Buffers: shared hit=2
+        ->  Index Scan using item_reports_pkey on item_reports found  (cost=0.14..0.24 rows=1 width=8) (actual time=0.001..0.001 rows=1 loops=1)
+              Index Cond: (report_id = pm.found_report_id)
+              Filter: ((title)::text = 'CP3 Demo Found Backpack'::text)
+              Buffers: shared hit=2
+Planning Time: 0.118 ms
+Trigger for constraint ownership_claims_claimant_student_id_fkey: time=0.044 calls=1
+Trigger for constraint ownership_claims_verified_by_student_id_fkey: time=0.004 calls=1
+Trigger for constraint ownership_claims_match_fk: time=0.036 calls=1
+Execution Time: 0.274 ms

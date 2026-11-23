@@ -1,0 +1,95 @@
+===== W8 RUN 1 =====
+Insert on possible_matches  (cost=0.29..38.46 rows=1 width=94) (actual time=4.249..4.255 rows=1 loops=1)
+  Buffers: shared hit=61 dirtied=2
+  ->  Nested Loop  (cost=0.29..38.46 rows=1 width=94) (actual time=0.028..0.032 rows=1 loops=1)
+        Join Filter: (reporter_found.student_id = found.student_id)
+        Buffers: shared hit=6
+        ->  Nested Loop  (cost=0.14..30.29 rows=1 width=24) (actual time=0.022..0.026 rows=1 loops=1)
+              Join Filter: (reporter_lost.student_id = lost.student_id)
+              Buffers: shared hit=4
+              ->  Nested Loop  (cost=0.00..22.11 rows=1 width=32) (actual time=0.013..0.017 rows=1 loops=1)
+                    Join Filter: (lost.category_id = found.category_id)
+                    Buffers: shared hit=2
+                    ->  Seq Scan on item_reports lost  (cost=0.00..11.05 rows=1 width=24) (actual time=0.007..0.009 rows=1 loops=1)
+                          Filter: (((report_type)::text = 'LOST'::text) AND ((title)::text = 'CP3 Demo Black Backpack'::text))
+                          Rows Removed by Filter: 1
+                          Buffers: shared hit=1
+                    ->  Seq Scan on item_reports found  (cost=0.00..11.05 rows=1 width=24) (actual time=0.004..0.005 rows=1 loops=1)
+                          Filter: (((report_type)::text = 'FOUND'::text) AND ((title)::text = 'CP3 Demo Found Backpack'::text))
+                          Rows Removed by Filter: 1
+                          Buffers: shared hit=1
+              ->  Index Scan using students_college_email_key on students reporter_lost  (cost=0.14..8.16 rows=1 width=8) (actual time=0.008..0.008 rows=1 loops=1)
+                    Index Cond: ((college_email)::text = 'cp3.lost@example.invalid'::text)
+                    Buffers: shared hit=2
+        ->  Index Scan using students_college_email_key on students reporter_found  (cost=0.14..8.16 rows=1 width=8) (actual time=0.003..0.003 rows=1 loops=1)
+              Index Cond: ((college_email)::text = 'cp3.found@example.invalid'::text)
+              Buffers: shared hit=2
+Planning Time: 0.386 ms
+Trigger for constraint possible_matches_lost_report_id_fkey: time=0.091 calls=1
+Trigger for constraint possible_matches_found_report_id_fkey: time=0.053 calls=1
+Trigger cp2_possible_match_types_trigger: time=0.803 calls=1
+Execution Time: 4.430 ms
+
+===== W8 RUN 2 =====
+Insert on possible_matches  (cost=0.29..38.46 rows=1 width=94) (actual time=2.096..2.101 rows=1 loops=1)
+  Buffers: shared hit=61
+  ->  Nested Loop  (cost=0.29..38.46 rows=1 width=94) (actual time=0.013..0.017 rows=1 loops=1)
+        Join Filter: (reporter_found.student_id = found.student_id)
+        Buffers: shared hit=6
+        ->  Nested Loop  (cost=0.14..30.29 rows=1 width=24) (actual time=0.010..0.014 rows=1 loops=1)
+              Join Filter: (reporter_lost.student_id = lost.student_id)
+              Buffers: shared hit=4
+              ->  Nested Loop  (cost=0.00..22.11 rows=1 width=32) (actual time=0.007..0.009 rows=1 loops=1)
+                    Join Filter: (lost.category_id = found.category_id)
+                    Buffers: shared hit=2
+                    ->  Seq Scan on item_reports lost  (cost=0.00..11.05 rows=1 width=24) (actual time=0.003..0.005 rows=1 loops=1)
+                          Filter: (((report_type)::text = 'LOST'::text) AND ((title)::text = 'CP3 Demo Black Backpack'::text))
+                          Rows Removed by Filter: 1
+                          Buffers: shared hit=1
+                    ->  Seq Scan on item_reports found  (cost=0.00..11.05 rows=1 width=24) (actual time=0.002..0.003 rows=1 loops=1)
+                          Filter: (((report_type)::text = 'FOUND'::text) AND ((title)::text = 'CP3 Demo Found Backpack'::text))
+                          Rows Removed by Filter: 1
+                          Buffers: shared hit=1
+              ->  Index Scan using students_college_email_key on students reporter_lost  (cost=0.14..8.16 rows=1 width=8) (actual time=0.003..0.003 rows=1 loops=1)
+                    Index Cond: ((college_email)::text = 'cp3.lost@example.invalid'::text)
+                    Buffers: shared hit=2
+        ->  Index Scan using students_college_email_key on students reporter_found  (cost=0.14..8.16 rows=1 width=8) (actual time=0.001..0.001 rows=1 loops=1)
+              Index Cond: ((college_email)::text = 'cp3.found@example.invalid'::text)
+              Buffers: shared hit=2
+Planning Time: 0.140 ms
+Trigger for constraint possible_matches_lost_report_id_fkey: time=0.059 calls=1
+Trigger for constraint possible_matches_found_report_id_fkey: time=0.035 calls=1
+Trigger cp2_possible_match_types_trigger: time=0.284 calls=1
+Execution Time: 2.212 ms
+
+===== W8 RUN 3 =====
+Insert on possible_matches  (cost=0.29..38.46 rows=1 width=94) (actual time=1.757..1.760 rows=1 loops=1)
+  Buffers: shared hit=61
+  ->  Nested Loop  (cost=0.29..38.46 rows=1 width=94) (actual time=0.010..0.013 rows=1 loops=1)
+        Join Filter: (reporter_found.student_id = found.student_id)
+        Buffers: shared hit=6
+        ->  Nested Loop  (cost=0.14..30.29 rows=1 width=24) (actual time=0.008..0.011 rows=1 loops=1)
+              Join Filter: (reporter_lost.student_id = lost.student_id)
+              Buffers: shared hit=4
+              ->  Nested Loop  (cost=0.00..22.11 rows=1 width=32) (actual time=0.005..0.007 rows=1 loops=1)
+                    Join Filter: (lost.category_id = found.category_id)
+                    Buffers: shared hit=2
+                    ->  Seq Scan on item_reports lost  (cost=0.00..11.05 rows=1 width=24) (actual time=0.003..0.003 rows=1 loops=1)
+                          Filter: (((report_type)::text = 'LOST'::text) AND ((title)::text = 'CP3 Demo Black Backpack'::text))
+                          Rows Removed by Filter: 1
+                          Buffers: shared hit=1
+                    ->  Seq Scan on item_reports found  (cost=0.00..11.05 rows=1 width=24) (actual time=0.002..0.002 rows=1 loops=1)
+                          Filter: (((report_type)::text = 'FOUND'::text) AND ((title)::text = 'CP3 Demo Found Backpack'::text))
+                          Rows Removed by Filter: 1
+                          Buffers: shared hit=1
+              ->  Index Scan using students_college_email_key on students reporter_lost  (cost=0.14..8.16 rows=1 width=8) (actual time=0.002..0.002 rows=1 loops=1)
+                    Index Cond: ((college_email)::text = 'cp3.lost@example.invalid'::text)
+                    Buffers: shared hit=2
+        ->  Index Scan using students_college_email_key on students reporter_found  (cost=0.14..8.16 rows=1 width=8) (actual time=0.001..0.001 rows=1 loops=1)
+              Index Cond: ((college_email)::text = 'cp3.found@example.invalid'::text)
+              Buffers: shared hit=2
+Planning Time: 0.095 ms
+Trigger for constraint possible_matches_lost_report_id_fkey: time=0.055 calls=1
+Trigger for constraint possible_matches_found_report_id_fkey: time=0.031 calls=1
+Trigger cp2_possible_match_types_trigger: time=0.248 calls=1
+Execution Time: 1.859 ms

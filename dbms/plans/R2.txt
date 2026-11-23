@@ -1,0 +1,71 @@
+===== R2 RUN 1 =====
+Sort  (cost=44.79..45.59 rows=320 width=234) (actual time=0.036..0.037 rows=1 loops=1)
+  Sort Key: c.category_name
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=5
+  ->  HashAggregate  (cost=28.27..31.47 rows=320 width=234) (actual time=0.018..0.021 rows=1 loops=1)
+        Group Key: c.category_id
+        Batches: 1  Memory Usage: 37kB
+        Buffers: shared hit=2
+        ->  Hash Left Join  (cost=11.57..26.67 rows=320 width=234) (actual time=0.009..0.010 rows=2 loops=1)
+              Hash Cond: (c.category_id = r.category_id)
+              Buffers: shared hit=2
+              ->  Seq Scan on categories c  (cost=0.00..13.20 rows=320 width=226) (actual time=0.002..0.003 rows=1 loops=1)
+                    Buffers: shared hit=1
+              ->  Hash  (cost=10.70..10.70 rows=70 width=16) (actual time=0.004..0.004 rows=2 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on item_reports r  (cost=0.00..10.70 rows=70 width=16) (actual time=0.002..0.003 rows=2 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=15
+Planning Time: 0.075 ms
+Execution Time: 0.071 ms
+
+===== R2 RUN 2 =====
+Sort  (cost=44.79..45.59 rows=320 width=234) (actual time=0.024..0.025 rows=1 loops=1)
+  Sort Key: c.category_name
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=5
+  ->  HashAggregate  (cost=28.27..31.47 rows=320 width=234) (actual time=0.013..0.015 rows=1 loops=1)
+        Group Key: c.category_id
+        Batches: 1  Memory Usage: 37kB
+        Buffers: shared hit=2
+        ->  Hash Left Join  (cost=11.57..26.67 rows=320 width=234) (actual time=0.007..0.008 rows=2 loops=1)
+              Hash Cond: (c.category_id = r.category_id)
+              Buffers: shared hit=2
+              ->  Seq Scan on categories c  (cost=0.00..13.20 rows=320 width=226) (actual time=0.002..0.002 rows=1 loops=1)
+                    Buffers: shared hit=1
+              ->  Hash  (cost=10.70..10.70 rows=70 width=16) (actual time=0.003..0.003 rows=2 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on item_reports r  (cost=0.00..10.70 rows=70 width=16) (actual time=0.002..0.002 rows=2 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=15
+Planning Time: 0.055 ms
+Execution Time: 0.040 ms
+
+===== R2 RUN 3 =====
+Sort  (cost=44.79..45.59 rows=320 width=234) (actual time=0.017..0.017 rows=1 loops=1)
+  Sort Key: c.category_name
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=5
+  ->  HashAggregate  (cost=28.27..31.47 rows=320 width=234) (actual time=0.009..0.010 rows=1 loops=1)
+        Group Key: c.category_id
+        Batches: 1  Memory Usage: 37kB
+        Buffers: shared hit=2
+        ->  Hash Left Join  (cost=11.57..26.67 rows=320 width=234) (actual time=0.004..0.004 rows=2 loops=1)
+              Hash Cond: (c.category_id = r.category_id)
+              Buffers: shared hit=2
+              ->  Seq Scan on categories c  (cost=0.00..13.20 rows=320 width=226) (actual time=0.001..0.001 rows=1 loops=1)
+                    Buffers: shared hit=1
+              ->  Hash  (cost=10.70..10.70 rows=70 width=16) (actual time=0.002..0.002 rows=2 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on item_reports r  (cost=0.00..10.70 rows=70 width=16) (actual time=0.001..0.001 rows=2 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=15
+Planning Time: 0.036 ms
+Execution Time: 0.028 ms

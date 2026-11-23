@@ -1,0 +1,59 @@
+===== R12 RUN 1 =====
+Nested Loop  (cost=8.31..26.40 rows=6 width=714) (actual time=0.012..0.012 rows=1 loops=1)
+  Buffers: shared hit=5
+  ->  Hash Join  (cost=8.17..24.90 rows=6 width=404) (actual time=0.010..0.010 rows=1 loops=1)
+        Hash Cond: (oc.verified_by_student_id = verifier.student_id)
+        Buffers: shared hit=3
+        ->  Seq Scan on ownership_claims oc  (cost=0.00..15.30 rows=530 width=94) (actual time=0.002..0.002 rows=1 loops=1)
+              Buffers: shared hit=1
+        ->  Hash  (cost=8.16..8.16 rows=1 width=326) (actual time=0.005..0.006 rows=1 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=2
+              ->  Index Scan using students_college_email_key on students verifier  (cost=0.14..8.16 rows=1 width=326) (actual time=0.004..0.005 rows=1 loops=1)
+                    Index Cond: ((college_email)::text = 'cp3.verifier@example.invalid'::text)
+                    Buffers: shared hit=2
+  ->  Index Scan using students_pkey on students claimant  (cost=0.14..0.25 rows=1 width=326) (actual time=0.001..0.001 rows=1 loops=1)
+        Index Cond: (student_id = oc.claimant_student_id)
+        Buffers: shared hit=2
+Planning Time: 0.057 ms
+Execution Time: 0.021 ms
+
+===== R12 RUN 2 =====
+Nested Loop  (cost=8.31..26.40 rows=6 width=714) (actual time=0.025..0.026 rows=1 loops=1)
+  Buffers: shared hit=5
+  ->  Hash Join  (cost=8.17..24.90 rows=6 width=404) (actual time=0.023..0.024 rows=1 loops=1)
+        Hash Cond: (oc.verified_by_student_id = verifier.student_id)
+        Buffers: shared hit=3
+        ->  Seq Scan on ownership_claims oc  (cost=0.00..15.30 rows=530 width=94) (actual time=0.003..0.003 rows=1 loops=1)
+              Buffers: shared hit=1
+        ->  Hash  (cost=8.16..8.16 rows=1 width=326) (actual time=0.018..0.018 rows=1 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=2
+              ->  Index Scan using students_college_email_key on students verifier  (cost=0.14..8.16 rows=1 width=326) (actual time=0.007..0.007 rows=1 loops=1)
+                    Index Cond: ((college_email)::text = 'cp3.verifier@example.invalid'::text)
+                    Buffers: shared hit=2
+  ->  Index Scan using students_pkey on students claimant  (cost=0.14..0.25 rows=1 width=326) (actual time=0.001..0.001 rows=1 loops=1)
+        Index Cond: (student_id = oc.claimant_student_id)
+        Buffers: shared hit=2
+Planning Time: 0.062 ms
+Execution Time: 0.036 ms
+
+===== R12 RUN 3 =====
+Nested Loop  (cost=8.31..26.40 rows=6 width=714) (actual time=0.015..0.016 rows=1 loops=1)
+  Buffers: shared hit=5
+  ->  Hash Join  (cost=8.17..24.90 rows=6 width=404) (actual time=0.014..0.015 rows=1 loops=1)
+        Hash Cond: (oc.verified_by_student_id = verifier.student_id)
+        Buffers: shared hit=3
+        ->  Seq Scan on ownership_claims oc  (cost=0.00..15.30 rows=530 width=94) (actual time=0.001..0.001 rows=1 loops=1)
+              Buffers: shared hit=1
+        ->  Hash  (cost=8.16..8.16 rows=1 width=326) (actual time=0.012..0.012 rows=1 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=2
+              ->  Index Scan using students_college_email_key on students verifier  (cost=0.14..8.16 rows=1 width=326) (actual time=0.011..0.012 rows=1 loops=1)
+                    Index Cond: ((college_email)::text = 'cp3.verifier@example.invalid'::text)
+                    Buffers: shared hit=2
+  ->  Index Scan using students_pkey on students claimant  (cost=0.14..0.25 rows=1 width=326) (actual time=0.001..0.001 rows=1 loops=1)
+        Index Cond: (student_id = oc.claimant_student_id)
+        Buffers: shared hit=2
+Planning Time: 0.029 ms
+Execution Time: 0.020 ms

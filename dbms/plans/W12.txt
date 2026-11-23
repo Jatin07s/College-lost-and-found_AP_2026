@@ -1,0 +1,89 @@
+===== W12 RUN 1 =====
+Insert on handovers  (cost=0.43..33.40 rows=1 width=72) (actual time=0.351..0.353 rows=1 loops=1)
+  Buffers: shared hit=56 dirtied=4
+  ->  Nested Loop  (cost=0.43..33.40 rows=1 width=72) (actual time=0.040..0.042 rows=1 loops=1)
+        Buffers: shared hit=16 dirtied=1
+        ->  Nested Loop  (cost=0.29..31.84 rows=1 width=24) (actual time=0.013..0.015 rows=1 loops=1)
+              Buffers: shared hit=5
+              ->  Nested Loop  (cost=0.14..24.82 rows=1 width=24) (actual time=0.010..0.012 rows=1 loops=1)
+                    Join Filter: (claimant.student_id = oc.claimant_student_id)
+                    Buffers: shared hit=3
+                    ->  Index Scan using students_college_email_key on students claimant  (cost=0.14..8.16 rows=1 width=8) (actual time=0.005..0.006 rows=1 loops=1)
+                          Index Cond: ((college_email)::text = 'cp3.lost@example.invalid'::text)
+                          Buffers: shared hit=2
+                    ->  Seq Scan on ownership_claims oc  (cost=0.00..16.62 rows=3 width=24) (actual time=0.004..0.004 rows=1 loops=1)
+                          Filter: ((verification_status)::text = 'APPROVED'::text)
+                          Buffers: shared hit=1
+              ->  Index Scan using item_reports_pkey on item_reports found  (cost=0.14..6.83 rows=1 width=16) (actual time=0.002..0.002 rows=1 loops=1)
+                    Index Cond: (report_id = oc.found_report_id)
+                    Buffers: shared hit=2
+        ->  Index Scan using students_pkey on students finder  (cost=0.14..0.85 rows=1 width=8) (actual time=0.002..0.002 rows=1 loops=1)
+              Index Cond: (student_id = found.student_id)
+              Filter: ((college_email)::text = 'cp3.found@example.invalid'::text)
+              Buffers: shared hit=2
+Planning Time: 0.176 ms
+Trigger for constraint handovers_claim_id_fkey: time=0.054 calls=1
+Trigger for constraint handovers_handed_over_by_student_id_fkey: time=0.051 calls=1
+Trigger for constraint handovers_received_by_student_id_fkey: time=0.039 calls=1
+Trigger cp2_approved_handover_trigger: time=0.137 calls=1
+Execution Time: 0.522 ms
+
+===== W12 RUN 2 =====
+Insert on handovers  (cost=0.43..33.40 rows=1 width=72) (actual time=0.183..0.184 rows=1 loops=1)
+  Buffers: shared hit=56
+  ->  Nested Loop  (cost=0.43..33.40 rows=1 width=72) (actual time=0.022..0.023 rows=1 loops=1)
+        Buffers: shared hit=16
+        ->  Nested Loop  (cost=0.29..31.84 rows=1 width=24) (actual time=0.008..0.009 rows=1 loops=1)
+              Buffers: shared hit=5
+              ->  Nested Loop  (cost=0.14..24.82 rows=1 width=24) (actual time=0.006..0.007 rows=1 loops=1)
+                    Join Filter: (claimant.student_id = oc.claimant_student_id)
+                    Buffers: shared hit=3
+                    ->  Index Scan using students_college_email_key on students claimant  (cost=0.14..8.16 rows=1 width=8) (actual time=0.003..0.003 rows=1 loops=1)
+                          Index Cond: ((college_email)::text = 'cp3.lost@example.invalid'::text)
+                          Buffers: shared hit=2
+                    ->  Seq Scan on ownership_claims oc  (cost=0.00..16.62 rows=3 width=24) (actual time=0.002..0.002 rows=1 loops=1)
+                          Filter: ((verification_status)::text = 'APPROVED'::text)
+                          Buffers: shared hit=1
+              ->  Index Scan using item_reports_pkey on item_reports found  (cost=0.14..6.83 rows=1 width=16) (actual time=0.001..0.001 rows=1 loops=1)
+                    Index Cond: (report_id = oc.found_report_id)
+                    Buffers: shared hit=2
+        ->  Index Scan using students_pkey on students finder  (cost=0.14..0.85 rows=1 width=8) (actual time=0.001..0.001 rows=1 loops=1)
+              Index Cond: (student_id = found.student_id)
+              Filter: ((college_email)::text = 'cp3.found@example.invalid'::text)
+              Buffers: shared hit=2
+Planning Time: 0.098 ms
+Trigger for constraint handovers_claim_id_fkey: time=0.045 calls=1
+Trigger for constraint handovers_handed_over_by_student_id_fkey: time=0.039 calls=1
+Trigger for constraint handovers_received_by_student_id_fkey: time=0.028 calls=1
+Trigger cp2_approved_handover_trigger: time=0.070 calls=1
+Execution Time: 0.311 ms
+
+===== W12 RUN 3 =====
+Insert on handovers  (cost=0.43..33.40 rows=1 width=72) (actual time=0.147..0.148 rows=1 loops=1)
+  Buffers: shared hit=56
+  ->  Nested Loop  (cost=0.43..33.40 rows=1 width=72) (actual time=0.020..0.021 rows=1 loops=1)
+        Buffers: shared hit=16
+        ->  Nested Loop  (cost=0.29..31.84 rows=1 width=24) (actual time=0.008..0.009 rows=1 loops=1)
+              Buffers: shared hit=5
+              ->  Nested Loop  (cost=0.14..24.82 rows=1 width=24) (actual time=0.006..0.007 rows=1 loops=1)
+                    Join Filter: (claimant.student_id = oc.claimant_student_id)
+                    Buffers: shared hit=3
+                    ->  Index Scan using students_college_email_key on students claimant  (cost=0.14..8.16 rows=1 width=8) (actual time=0.004..0.004 rows=1 loops=1)
+                          Index Cond: ((college_email)::text = 'cp3.lost@example.invalid'::text)
+                          Buffers: shared hit=2
+                    ->  Seq Scan on ownership_claims oc  (cost=0.00..16.62 rows=3 width=24) (actual time=0.002..0.002 rows=1 loops=1)
+                          Filter: ((verification_status)::text = 'APPROVED'::text)
+                          Buffers: shared hit=1
+              ->  Index Scan using item_reports_pkey on item_reports found  (cost=0.14..6.83 rows=1 width=16) (actual time=0.001..0.001 rows=1 loops=1)
+                    Index Cond: (report_id = oc.found_report_id)
+                    Buffers: shared hit=2
+        ->  Index Scan using students_pkey on students finder  (cost=0.14..0.85 rows=1 width=8) (actual time=0.001..0.001 rows=1 loops=1)
+              Index Cond: (student_id = found.student_id)
+              Filter: ((college_email)::text = 'cp3.found@example.invalid'::text)
+              Buffers: shared hit=2
+Planning Time: 0.076 ms
+Trigger for constraint handovers_claim_id_fkey: time=0.023 calls=1
+Trigger for constraint handovers_handed_over_by_student_id_fkey: time=0.020 calls=1
+Trigger for constraint handovers_received_by_student_id_fkey: time=0.014 calls=1
+Trigger cp2_approved_handover_trigger: time=0.062 calls=1
+Execution Time: 0.215 ms

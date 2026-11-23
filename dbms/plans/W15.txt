@@ -1,0 +1,95 @@
+===== W15 RUN 1 =====
+Update on item_reports r  (cost=55.25..58.89 rows=1 width=76) (actual time=0.052..0.054 rows=1 loops=1)
+  Buffers: shared hit=7
+  ->  Hash Join  (cost=55.25..58.89 rows=1 width=76) (actual time=0.014..0.015 rows=1 loops=1)
+        Hash Cond: (oc.found_report_id = r.report_id)
+        Buffers: shared hit=3
+        ->  HashAggregate  (cost=44.19..46.19 rows=200 width=20) (actual time=0.008..0.008 rows=1 loops=1)
+              Group Key: oc.found_report_id
+              Batches: 1  Memory Usage: 40kB
+              Buffers: shared hit=2
+              ->  Hash Join  (cost=21.93..42.16 rows=810 width=20) (actual time=0.005..0.006 rows=1 loops=1)
+                    Hash Cond: (h.claim_id = oc.claim_id)
+                    Buffers: shared hit=2
+                    ->  Seq Scan on handovers h  (cost=0.00..18.10 rows=810 width=14) (actual time=0.001..0.002 rows=1 loops=1)
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=15.30..15.30 rows=530 width=22) (actual time=0.002..0.002 rows=1 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                          Buffers: shared hit=1
+                          ->  Seq Scan on ownership_claims oc  (cost=0.00..15.30 rows=530 width=22) (actual time=0.002..0.002 rows=1 loops=1)
+                                Buffers: shared hit=1
+        ->  Hash  (cost=11.05..11.05 rows=1 width=14) (actual time=0.005..0.005 rows=1 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on item_reports r  (cost=0.00..11.05 rows=1 width=14) (actual time=0.004..0.004 rows=1 loops=1)
+                    Filter: (((title)::text = 'CP3 Demo Found Backpack'::text) AND ((status)::text = 'RESOLVED'::text))
+                    Rows Removed by Filter: 1
+                    Buffers: shared hit=1
+Planning Time: 0.070 ms
+Trigger for constraint item_reports_student_id_fkey: time=0.028 calls=1
+Trigger for constraint item_reports_category_id_fkey: time=0.021 calls=1
+Execution Time: 0.119 ms
+
+===== W15 RUN 2 =====
+Update on item_reports r  (cost=55.25..58.89 rows=1 width=76) (actual time=0.034..0.035 rows=1 loops=1)
+  Buffers: shared hit=7
+  ->  Hash Join  (cost=55.25..58.89 rows=1 width=76) (actual time=0.007..0.007 rows=1 loops=1)
+        Hash Cond: (oc.found_report_id = r.report_id)
+        Buffers: shared hit=3
+        ->  HashAggregate  (cost=44.19..46.19 rows=200 width=20) (actual time=0.004..0.004 rows=1 loops=1)
+              Group Key: oc.found_report_id
+              Batches: 1  Memory Usage: 40kB
+              Buffers: shared hit=2
+              ->  Hash Join  (cost=21.93..42.16 rows=810 width=20) (actual time=0.003..0.003 rows=1 loops=1)
+                    Hash Cond: (h.claim_id = oc.claim_id)
+                    Buffers: shared hit=2
+                    ->  Seq Scan on handovers h  (cost=0.00..18.10 rows=810 width=14) (actual time=0.001..0.001 rows=1 loops=1)
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=15.30..15.30 rows=530 width=22) (actual time=0.001..0.001 rows=1 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                          Buffers: shared hit=1
+                          ->  Seq Scan on ownership_claims oc  (cost=0.00..15.30 rows=530 width=22) (actual time=0.001..0.001 rows=1 loops=1)
+                                Buffers: shared hit=1
+        ->  Hash  (cost=11.05..11.05 rows=1 width=14) (actual time=0.002..0.002 rows=1 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on item_reports r  (cost=0.00..11.05 rows=1 width=14) (actual time=0.002..0.002 rows=1 loops=1)
+                    Filter: (((title)::text = 'CP3 Demo Found Backpack'::text) AND ((status)::text = 'RESOLVED'::text))
+                    Rows Removed by Filter: 1
+                    Buffers: shared hit=1
+Planning Time: 0.036 ms
+Trigger for constraint item_reports_student_id_fkey: time=0.018 calls=1
+Trigger for constraint item_reports_category_id_fkey: time=0.010 calls=1
+Execution Time: 0.072 ms
+
+===== W15 RUN 3 =====
+Update on item_reports r  (cost=55.25..58.89 rows=1 width=76) (actual time=0.026..0.026 rows=1 loops=1)
+  Buffers: shared hit=7
+  ->  Hash Join  (cost=55.25..58.89 rows=1 width=76) (actual time=0.006..0.007 rows=1 loops=1)
+        Hash Cond: (oc.found_report_id = r.report_id)
+        Buffers: shared hit=3
+        ->  HashAggregate  (cost=44.19..46.19 rows=200 width=20) (actual time=0.004..0.004 rows=1 loops=1)
+              Group Key: oc.found_report_id
+              Batches: 1  Memory Usage: 40kB
+              Buffers: shared hit=2
+              ->  Hash Join  (cost=21.93..42.16 rows=810 width=20) (actual time=0.002..0.002 rows=1 loops=1)
+                    Hash Cond: (h.claim_id = oc.claim_id)
+                    Buffers: shared hit=2
+                    ->  Seq Scan on handovers h  (cost=0.00..18.10 rows=810 width=14) (actual time=0.001..0.001 rows=1 loops=1)
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=15.30..15.30 rows=530 width=22) (actual time=0.001..0.001 rows=1 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                          Buffers: shared hit=1
+                          ->  Seq Scan on ownership_claims oc  (cost=0.00..15.30 rows=530 width=22) (actual time=0.001..0.001 rows=1 loops=1)
+                                Buffers: shared hit=1
+        ->  Hash  (cost=11.05..11.05 rows=1 width=14) (actual time=0.002..0.002 rows=1 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on item_reports r  (cost=0.00..11.05 rows=1 width=14) (actual time=0.002..0.002 rows=1 loops=1)
+                    Filter: (((title)::text = 'CP3 Demo Found Backpack'::text) AND ((status)::text = 'RESOLVED'::text))
+                    Rows Removed by Filter: 1
+                    Buffers: shared hit=1
+Planning Time: 0.036 ms
+Trigger for constraint item_reports_student_id_fkey: time=0.013 calls=1
+Trigger for constraint item_reports_category_id_fkey: time=0.009 calls=1
+Execution Time: 0.057 ms

@@ -1,0 +1,56 @@
+===== R4 RUN 1 =====
+Sort  (cost=19.24..19.24 rows=1 width=1246) (actual time=0.028..0.028 rows=2 loops=1)
+  Sort Key: r.event_date DESC, r.report_id DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=8
+  ->  Nested Loop  (cost=0.15..19.23 rows=1 width=1246) (actual time=0.013..0.017 rows=2 loops=1)
+        Join Filter: (c.category_id = r.category_id)
+        Buffers: shared hit=5
+        ->  Seq Scan on item_reports r  (cost=0.00..11.05 rows=1 width=1036) (actual time=0.009..0.011 rows=2 loops=1)
+              Filter: (((title)::text ~~* '%backpack%'::text) OR ((event_location)::text ~~* '%library%'::text))
+              Buffers: shared hit=1
+        ->  Index Scan using categories_category_name_key on categories c  (cost=0.15..8.17 rows=1 width=226) (actual time=0.001..0.001 rows=1 loops=2)
+              Index Cond: ((category_name)::text = 'CP3 Demo Accessories'::text)
+              Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=11
+Planning Time: 0.079 ms
+Execution Time: 0.039 ms
+
+===== R4 RUN 2 =====
+Sort  (cost=19.24..19.24 rows=1 width=1246) (actual time=0.015..0.015 rows=2 loops=1)
+  Sort Key: r.event_date DESC, r.report_id DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=8
+  ->  Nested Loop  (cost=0.15..19.23 rows=1 width=1246) (actual time=0.007..0.009 rows=2 loops=1)
+        Join Filter: (c.category_id = r.category_id)
+        Buffers: shared hit=5
+        ->  Seq Scan on item_reports r  (cost=0.00..11.05 rows=1 width=1036) (actual time=0.005..0.006 rows=2 loops=1)
+              Filter: (((title)::text ~~* '%backpack%'::text) OR ((event_location)::text ~~* '%library%'::text))
+              Buffers: shared hit=1
+        ->  Index Scan using categories_category_name_key on categories c  (cost=0.15..8.17 rows=1 width=226) (actual time=0.001..0.001 rows=1 loops=2)
+              Index Cond: ((category_name)::text = 'CP3 Demo Accessories'::text)
+              Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=11
+Planning Time: 0.050 ms
+Execution Time: 0.022 ms
+
+===== R4 RUN 3 =====
+Sort  (cost=19.24..19.24 rows=1 width=1246) (actual time=0.010..0.010 rows=2 loops=1)
+  Sort Key: r.event_date DESC, r.report_id DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=8
+  ->  Nested Loop  (cost=0.15..19.23 rows=1 width=1246) (actual time=0.005..0.007 rows=2 loops=1)
+        Join Filter: (c.category_id = r.category_id)
+        Buffers: shared hit=5
+        ->  Seq Scan on item_reports r  (cost=0.00..11.05 rows=1 width=1036) (actual time=0.003..0.004 rows=2 loops=1)
+              Filter: (((title)::text ~~* '%backpack%'::text) OR ((event_location)::text ~~* '%library%'::text))
+              Buffers: shared hit=1
+        ->  Index Scan using categories_category_name_key on categories c  (cost=0.15..8.17 rows=1 width=226) (actual time=0.001..0.001 rows=1 loops=2)
+              Index Cond: ((category_name)::text = 'CP3 Demo Accessories'::text)
+              Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=11
+Planning Time: 0.034 ms
+Execution Time: 0.015 ms

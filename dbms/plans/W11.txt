@@ -1,0 +1,80 @@
+===== W11 RUN 1 =====
+Update on ownership_claims oc  (cost=0.29..33.00 rows=1 width=72) (actual time=0.433..0.435 rows=1 loops=1)
+  Buffers: shared hit=98
+  ->  Nested Loop  (cost=0.29..33.00 rows=1 width=72) (actual time=0.019..0.021 rows=1 loops=1)
+        Join Filter: (verifier.student_id <> oc.claimant_student_id)
+        Buffers: shared hit=5
+        ->  Nested Loop  (cost=0.14..24.82 rows=1 width=20) (actual time=0.012..0.013 rows=1 loops=1)
+              Join Filter: (claimant.student_id = oc.claimant_student_id)
+              Buffers: shared hit=3
+              ->  Index Scan using students_college_email_key on students claimant  (cost=0.14..8.16 rows=1 width=14) (actual time=0.006..0.007 rows=1 loops=1)
+                    Index Cond: ((college_email)::text = 'cp3.lost@example.invalid'::text)
+                    Buffers: shared hit=2
+              ->  Seq Scan on ownership_claims oc  (cost=0.00..16.62 rows=3 width=14) (actual time=0.004..0.004 rows=1 loops=1)
+                    Filter: ((verification_status)::text = 'PENDING'::text)
+                    Buffers: shared hit=1
+        ->  Index Scan using students_college_email_key on students verifier  (cost=0.14..8.16 rows=1 width=14) (actual time=0.006..0.006 rows=1 loops=1)
+              Index Cond: ((college_email)::text = 'cp3.verifier@example.invalid'::text)
+              Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=24
+Planning Time: 0.238 ms
+Trigger for constraint ownership_claims_claimant_student_id_fkey: time=0.039 calls=1
+Trigger for constraint ownership_claims_verified_by_student_id_fkey: time=0.052 calls=1
+Trigger for constraint ownership_claims_match_fk: time=0.037 calls=1
+Trigger cp2_claim_approval_protection_trigger: time=0.324 calls=1
+Execution Time: 0.597 ms
+
+===== W11 RUN 2 =====
+Update on ownership_claims oc  (cost=0.29..33.00 rows=1 width=72) (actual time=0.234..0.235 rows=1 loops=1)
+  Buffers: shared hit=98
+  ->  Nested Loop  (cost=0.29..33.00 rows=1 width=72) (actual time=0.010..0.011 rows=1 loops=1)
+        Join Filter: (verifier.student_id <> oc.claimant_student_id)
+        Buffers: shared hit=5
+        ->  Nested Loop  (cost=0.14..24.82 rows=1 width=20) (actual time=0.006..0.007 rows=1 loops=1)
+              Join Filter: (claimant.student_id = oc.claimant_student_id)
+              Buffers: shared hit=3
+              ->  Index Scan using students_college_email_key on students claimant  (cost=0.14..8.16 rows=1 width=14) (actual time=0.003..0.003 rows=1 loops=1)
+                    Index Cond: ((college_email)::text = 'cp3.lost@example.invalid'::text)
+                    Buffers: shared hit=2
+              ->  Seq Scan on ownership_claims oc  (cost=0.00..16.62 rows=3 width=14) (actual time=0.002..0.003 rows=1 loops=1)
+                    Filter: ((verification_status)::text = 'PENDING'::text)
+                    Buffers: shared hit=1
+        ->  Index Scan using students_college_email_key on students verifier  (cost=0.14..8.16 rows=1 width=14) (actual time=0.003..0.003 rows=1 loops=1)
+              Index Cond: ((college_email)::text = 'cp3.verifier@example.invalid'::text)
+              Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=24
+Planning Time: 0.129 ms
+Trigger for constraint ownership_claims_claimant_student_id_fkey: time=0.021 calls=1
+Trigger for constraint ownership_claims_verified_by_student_id_fkey: time=0.029 calls=1
+Trigger for constraint ownership_claims_match_fk: time=0.022 calls=1
+Trigger cp2_claim_approval_protection_trigger: time=0.174 calls=1
+Execution Time: 0.324 ms
+
+===== W11 RUN 3 =====
+Update on ownership_claims oc  (cost=0.29..33.00 rows=1 width=72) (actual time=0.220..0.221 rows=1 loops=1)
+  Buffers: shared hit=98
+  ->  Nested Loop  (cost=0.29..33.00 rows=1 width=72) (actual time=0.012..0.013 rows=1 loops=1)
+        Join Filter: (verifier.student_id <> oc.claimant_student_id)
+        Buffers: shared hit=5
+        ->  Nested Loop  (cost=0.14..24.82 rows=1 width=20) (actual time=0.008..0.009 rows=1 loops=1)
+              Join Filter: (claimant.student_id = oc.claimant_student_id)
+              Buffers: shared hit=3
+              ->  Index Scan using students_college_email_key on students claimant  (cost=0.14..8.16 rows=1 width=14) (actual time=0.003..0.003 rows=1 loops=1)
+                    Index Cond: ((college_email)::text = 'cp3.lost@example.invalid'::text)
+                    Buffers: shared hit=2
+              ->  Seq Scan on ownership_claims oc  (cost=0.00..16.62 rows=3 width=14) (actual time=0.005..0.005 rows=1 loops=1)
+                    Filter: ((verification_status)::text = 'PENDING'::text)
+                    Buffers: shared hit=1
+        ->  Index Scan using students_college_email_key on students verifier  (cost=0.14..8.16 rows=1 width=14) (actual time=0.002..0.002 rows=1 loops=1)
+              Index Cond: ((college_email)::text = 'cp3.verifier@example.invalid'::text)
+              Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=24
+Planning Time: 0.118 ms
+Trigger for constraint ownership_claims_claimant_student_id_fkey: time=0.026 calls=1
+Trigger for constraint ownership_claims_verified_by_student_id_fkey: time=0.030 calls=1
+Trigger for constraint ownership_claims_match_fk: time=0.015 calls=1
+Trigger cp2_claim_approval_protection_trigger: time=0.167 calls=1
+Execution Time: 0.311 ms

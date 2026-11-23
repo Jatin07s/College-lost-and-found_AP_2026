@@ -1,0 +1,71 @@
+===== W14 RUN 1 =====
+Delete on report_images img  (cost=11.03..42.80 rows=1 width=18) (actual time=0.015..0.017 rows=1 loops=1)
+  Buffers: shared hit=6
+  ->  Nested Loop  (cost=11.03..42.80 rows=1 width=18) (actual time=0.011..0.012 rows=1 loops=1)
+        Join Filter: (s.student_id = r.student_id)
+        Buffers: shared hit=4
+        ->  Index Scan using students_college_email_key on students s  (cost=0.14..8.16 rows=1 width=14) (actual time=0.003..0.004 rows=1 loops=1)
+              Index Cond: ((college_email)::text = 'cp3.found@example.invalid'::text)
+              Buffers: shared hit=2
+        ->  Hash Join  (cost=10.89..34.45 rows=15 width=20) (actual time=0.007..0.008 rows=1 loops=1)
+              Hash Cond: (img.report_id = r.report_id)
+              Buffers: shared hit=2
+              ->  Seq Scan on report_images img  (cost=0.00..20.70 rows=1070 width=14) (actual time=0.002..0.002 rows=1 loops=1)
+                    Buffers: shared hit=1
+              ->  Hash  (cost=10.88..10.88 rows=1 width=22) (actual time=0.003..0.003 rows=1 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on item_reports r  (cost=0.00..10.88 rows=1 width=22) (actual time=0.002..0.002 rows=1 loops=1)
+                          Filter: ((title)::text = 'CP3 Demo Found Backpack'::text)
+                          Rows Removed by Filter: 1
+                          Buffers: shared hit=1
+Planning Time: 0.059 ms
+Execution Time: 0.035 ms
+
+===== W14 RUN 2 =====
+Delete on report_images img  (cost=11.03..42.80 rows=1 width=18) (actual time=0.009..0.010 rows=1 loops=1)
+  Buffers: shared hit=6
+  ->  Nested Loop  (cost=11.03..42.80 rows=1 width=18) (actual time=0.006..0.007 rows=1 loops=1)
+        Join Filter: (s.student_id = r.student_id)
+        Buffers: shared hit=4
+        ->  Index Scan using students_college_email_key on students s  (cost=0.14..8.16 rows=1 width=14) (actual time=0.002..0.002 rows=1 loops=1)
+              Index Cond: ((college_email)::text = 'cp3.found@example.invalid'::text)
+              Buffers: shared hit=2
+        ->  Hash Join  (cost=10.89..34.45 rows=15 width=20) (actual time=0.004..0.004 rows=1 loops=1)
+              Hash Cond: (img.report_id = r.report_id)
+              Buffers: shared hit=2
+              ->  Seq Scan on report_images img  (cost=0.00..20.70 rows=1070 width=14) (actual time=0.001..0.001 rows=1 loops=1)
+                    Buffers: shared hit=1
+              ->  Hash  (cost=10.88..10.88 rows=1 width=22) (actual time=0.002..0.002 rows=1 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on item_reports r  (cost=0.00..10.88 rows=1 width=22) (actual time=0.001..0.001 rows=1 loops=1)
+                          Filter: ((title)::text = 'CP3 Demo Found Backpack'::text)
+                          Rows Removed by Filter: 1
+                          Buffers: shared hit=1
+Planning Time: 0.033 ms
+Execution Time: 0.023 ms
+
+===== W14 RUN 3 =====
+Delete on report_images img  (cost=11.03..42.80 rows=1 width=18) (actual time=0.007..0.008 rows=1 loops=1)
+  Buffers: shared hit=6
+  ->  Nested Loop  (cost=11.03..42.80 rows=1 width=18) (actual time=0.005..0.006 rows=1 loops=1)
+        Join Filter: (s.student_id = r.student_id)
+        Buffers: shared hit=4
+        ->  Index Scan using students_college_email_key on students s  (cost=0.14..8.16 rows=1 width=14) (actual time=0.002..0.002 rows=1 loops=1)
+              Index Cond: ((college_email)::text = 'cp3.found@example.invalid'::text)
+              Buffers: shared hit=2
+        ->  Hash Join  (cost=10.89..34.45 rows=15 width=20) (actual time=0.003..0.003 rows=1 loops=1)
+              Hash Cond: (img.report_id = r.report_id)
+              Buffers: shared hit=2
+              ->  Seq Scan on report_images img  (cost=0.00..20.70 rows=1070 width=14) (actual time=0.001..0.001 rows=1 loops=1)
+                    Buffers: shared hit=1
+              ->  Hash  (cost=10.88..10.88 rows=1 width=22) (actual time=0.002..0.002 rows=1 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on item_reports r  (cost=0.00..10.88 rows=1 width=22) (actual time=0.001..0.001 rows=1 loops=1)
+                          Filter: ((title)::text = 'CP3 Demo Found Backpack'::text)
+                          Rows Removed by Filter: 1
+                          Buffers: shared hit=1
+Planning Time: 0.029 ms
+Execution Time: 0.016 ms

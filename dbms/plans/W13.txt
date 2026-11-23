@@ -1,0 +1,77 @@
+===== W13 RUN 1 =====
+Update on item_reports r  (cost=21.93..60.60 rows=2 width=76) (actual time=0.061..0.073 rows=2 loops=1)
+  Buffers: shared hit=12
+  ->  Nested Loop Semi Join  (cost=21.93..60.60 rows=2 width=76) (actual time=0.016..0.021 rows=2 loops=1)
+        Join Filter: ((r.report_id = oc.lost_report_id) OR (r.report_id = oc.found_report_id))
+        Buffers: shared hit=4
+        ->  Seq Scan on item_reports r  (cost=0.00..10.88 rows=2 width=14) (actual time=0.004..0.005 rows=2 loops=1)
+              Filter: ((status)::text = ANY ('{OPEN,MATCHED}'::text[]))
+              Buffers: shared hit=1
+        ->  Hash Join  (cost=21.93..42.16 rows=810 width=28) (actual time=0.006..0.006 rows=1 loops=2)
+              Hash Cond: (h.claim_id = oc.claim_id)
+              Buffers: shared hit=3
+              ->  Seq Scan on handovers h  (cost=0.00..18.10 rows=810 width=14) (actual time=0.001..0.001 rows=1 loops=2)
+                    Buffers: shared hit=2
+              ->  Hash  (cost=15.30..15.30 rows=530 width=30) (actual time=0.004..0.005 rows=1 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on ownership_claims oc  (cost=0.00..15.30 rows=530 width=30) (actual time=0.002..0.002 rows=1 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=68
+Planning Time: 0.347 ms
+Trigger for constraint item_reports_student_id_fkey: time=0.056 calls=2
+Trigger for constraint item_reports_category_id_fkey: time=0.059 calls=2
+Execution Time: 0.224 ms
+
+===== W13 RUN 2 =====
+Update on item_reports r  (cost=21.93..60.60 rows=2 width=76) (actual time=0.044..0.052 rows=2 loops=1)
+  Buffers: shared hit=12
+  ->  Nested Loop Semi Join  (cost=21.93..60.60 rows=2 width=76) (actual time=0.012..0.015 rows=2 loops=1)
+        Join Filter: ((r.report_id = oc.lost_report_id) OR (r.report_id = oc.found_report_id))
+        Buffers: shared hit=4
+        ->  Seq Scan on item_reports r  (cost=0.00..10.88 rows=2 width=14) (actual time=0.003..0.004 rows=2 loops=1)
+              Filter: ((status)::text = ANY ('{OPEN,MATCHED}'::text[]))
+              Buffers: shared hit=1
+        ->  Hash Join  (cost=21.93..42.16 rows=810 width=28) (actual time=0.004..0.004 rows=1 loops=2)
+              Hash Cond: (h.claim_id = oc.claim_id)
+              Buffers: shared hit=3
+              ->  Seq Scan on handovers h  (cost=0.00..18.10 rows=810 width=14) (actual time=0.001..0.001 rows=1 loops=2)
+                    Buffers: shared hit=2
+              ->  Hash  (cost=15.30..15.30 rows=530 width=30) (actual time=0.003..0.003 rows=1 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on ownership_claims oc  (cost=0.00..15.30 rows=530 width=30) (actual time=0.002..0.002 rows=1 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=68
+Planning Time: 0.216 ms
+Trigger for constraint item_reports_student_id_fkey: time=0.043 calls=2
+Trigger for constraint item_reports_category_id_fkey: time=0.040 calls=2
+Execution Time: 0.159 ms
+
+===== W13 RUN 3 =====
+Update on item_reports r  (cost=21.93..60.60 rows=2 width=76) (actual time=0.032..0.037 rows=2 loops=1)
+  Buffers: shared hit=12
+  ->  Nested Loop Semi Join  (cost=21.93..60.60 rows=2 width=76) (actual time=0.011..0.014 rows=2 loops=1)
+        Join Filter: ((r.report_id = oc.lost_report_id) OR (r.report_id = oc.found_report_id))
+        Buffers: shared hit=4
+        ->  Seq Scan on item_reports r  (cost=0.00..10.88 rows=2 width=14) (actual time=0.002..0.002 rows=2 loops=1)
+              Filter: ((status)::text = ANY ('{OPEN,MATCHED}'::text[]))
+              Buffers: shared hit=1
+        ->  Hash Join  (cost=21.93..42.16 rows=810 width=28) (actual time=0.005..0.005 rows=1 loops=2)
+              Hash Cond: (h.claim_id = oc.claim_id)
+              Buffers: shared hit=3
+              ->  Seq Scan on handovers h  (cost=0.00..18.10 rows=810 width=14) (actual time=0.001..0.001 rows=1 loops=2)
+                    Buffers: shared hit=2
+              ->  Hash  (cost=15.30..15.30 rows=530 width=30) (actual time=0.006..0.006 rows=1 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on ownership_claims oc  (cost=0.00..15.30 rows=530 width=30) (actual time=0.001..0.001 rows=1 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=68
+Planning Time: 0.122 ms
+Trigger for constraint item_reports_student_id_fkey: time=0.019 calls=2
+Trigger for constraint item_reports_category_id_fkey: time=0.017 calls=2
+Execution Time: 0.087 ms

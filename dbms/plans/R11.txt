@@ -1,0 +1,86 @@
+===== R11 RUN 1 =====
+Sort  (cost=26.92..26.92 rows=2 width=798) (actual time=0.014..0.015 rows=1 loops=1)
+  Sort Key: oc.created_at DESC, oc.claim_id DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=7
+  ->  Nested Loop Left Join  (cost=8.46..26.91 rows=2 width=798) (actual time=0.013..0.014 rows=1 loops=1)
+        Buffers: shared hit=7
+        ->  Nested Loop  (cost=8.31..26.40 rows=2 width=488) (actual time=0.011..0.012 rows=1 loops=1)
+              Buffers: shared hit=5
+              ->  Hash Join  (cost=8.17..24.90 rows=6 width=78) (actual time=0.009..0.010 rows=1 loops=1)
+                    Hash Cond: (oc.claimant_student_id = claimant.student_id)
+                    Buffers: shared hit=3
+                    ->  Seq Scan on ownership_claims oc  (cost=0.00..15.30 rows=530 width=86) (actual time=0.002..0.002 rows=1 loops=1)
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=8.16..8.16 rows=1 width=8) (actual time=0.005..0.005 rows=1 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                          Buffers: shared hit=2
+                          ->  Index Scan using students_college_email_key on students claimant  (cost=0.14..8.16 rows=1 width=8) (actual time=0.004..0.004 rows=1 loops=1)
+                                Index Cond: ((college_email)::text = 'cp3.lost@example.invalid'::text)
+                                Buffers: shared hit=2
+              ->  Index Scan using item_reports_pkey on item_reports found  (cost=0.14..0.25 rows=1 width=426) (actual time=0.001..0.001 rows=1 loops=1)
+                    Index Cond: (report_id = oc.found_report_id)
+                    Buffers: shared hit=2
+        ->  Index Scan using students_pkey on students verifier  (cost=0.14..0.25 rows=1 width=326) (actual time=0.001..0.001 rows=1 loops=1)
+              Index Cond: (student_id = oc.verified_by_student_id)
+              Buffers: shared hit=2
+Planning Time: 0.102 ms
+Execution Time: 0.028 ms
+
+===== R11 RUN 2 =====
+Sort  (cost=26.92..26.92 rows=2 width=798) (actual time=0.012..0.012 rows=1 loops=1)
+  Sort Key: oc.created_at DESC, oc.claim_id DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=7
+  ->  Nested Loop Left Join  (cost=8.46..26.91 rows=2 width=798) (actual time=0.010..0.011 rows=1 loops=1)
+        Buffers: shared hit=7
+        ->  Nested Loop  (cost=8.31..26.40 rows=2 width=488) (actual time=0.009..0.010 rows=1 loops=1)
+              Buffers: shared hit=5
+              ->  Hash Join  (cost=8.17..24.90 rows=6 width=78) (actual time=0.008..0.008 rows=1 loops=1)
+                    Hash Cond: (oc.claimant_student_id = claimant.student_id)
+                    Buffers: shared hit=3
+                    ->  Seq Scan on ownership_claims oc  (cost=0.00..15.30 rows=530 width=86) (actual time=0.002..0.002 rows=1 loops=1)
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=8.16..8.16 rows=1 width=8) (actual time=0.004..0.004 rows=1 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                          Buffers: shared hit=2
+                          ->  Index Scan using students_college_email_key on students claimant  (cost=0.14..8.16 rows=1 width=8) (actual time=0.003..0.003 rows=1 loops=1)
+                                Index Cond: ((college_email)::text = 'cp3.lost@example.invalid'::text)
+                                Buffers: shared hit=2
+              ->  Index Scan using item_reports_pkey on item_reports found  (cost=0.14..0.25 rows=1 width=426) (actual time=0.001..0.001 rows=1 loops=1)
+                    Index Cond: (report_id = oc.found_report_id)
+                    Buffers: shared hit=2
+        ->  Index Scan using students_pkey on students verifier  (cost=0.14..0.25 rows=1 width=326) (actual time=0.001..0.001 rows=1 loops=1)
+              Index Cond: (student_id = oc.verified_by_student_id)
+              Buffers: shared hit=2
+Planning Time: 0.087 ms
+Execution Time: 0.024 ms
+
+===== R11 RUN 3 =====
+Sort  (cost=26.92..26.92 rows=2 width=798) (actual time=0.006..0.007 rows=1 loops=1)
+  Sort Key: oc.created_at DESC, oc.claim_id DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=7
+  ->  Nested Loop Left Join  (cost=8.46..26.91 rows=2 width=798) (actual time=0.006..0.006 rows=1 loops=1)
+        Buffers: shared hit=7
+        ->  Nested Loop  (cost=8.31..26.40 rows=2 width=488) (actual time=0.005..0.005 rows=1 loops=1)
+              Buffers: shared hit=5
+              ->  Hash Join  (cost=8.17..24.90 rows=6 width=78) (actual time=0.004..0.004 rows=1 loops=1)
+                    Hash Cond: (oc.claimant_student_id = claimant.student_id)
+                    Buffers: shared hit=3
+                    ->  Seq Scan on ownership_claims oc  (cost=0.00..15.30 rows=530 width=86) (actual time=0.001..0.001 rows=1 loops=1)
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=8.16..8.16 rows=1 width=8) (actual time=0.002..0.002 rows=1 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                          Buffers: shared hit=2
+                          ->  Index Scan using students_college_email_key on students claimant  (cost=0.14..8.16 rows=1 width=8) (actual time=0.002..0.002 rows=1 loops=1)
+                                Index Cond: ((college_email)::text = 'cp3.lost@example.invalid'::text)
+                                Buffers: shared hit=2
+              ->  Index Scan using item_reports_pkey on item_reports found  (cost=0.14..0.25 rows=1 width=426) (actual time=0.000..0.000 rows=1 loops=1)
+                    Index Cond: (report_id = oc.found_report_id)
+                    Buffers: shared hit=2
+        ->  Index Scan using students_pkey on students verifier  (cost=0.14..0.25 rows=1 width=326) (actual time=0.000..0.000 rows=1 loops=1)
+              Index Cond: (student_id = oc.verified_by_student_id)
+              Buffers: shared hit=2
+Planning Time: 0.048 ms
+Execution Time: 0.013 ms

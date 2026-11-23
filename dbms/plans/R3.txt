@@ -1,0 +1,86 @@
+===== R3 RUN 1 =====
+Sort  (cost=36.76..36.77 rows=3 width=1572) (actual time=0.047..0.048 rows=2 loops=1)
+  Sort Key: r.reported_at DESC, r.report_id DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=9
+  ->  Hash Join  (cost=22.30..36.73 rows=3 width=1572) (actual time=0.025..0.027 rows=2 loops=1)
+        Hash Cond: (c.category_id = r.category_id)
+        Buffers: shared hit=3
+        ->  Seq Scan on categories c  (cost=0.00..13.20 rows=320 width=226) (actual time=0.003..0.003 rows=1 loops=1)
+              Buffers: shared hit=1
+        ->  Hash  (cost=22.27..22.27 rows=3 width=1362) (actual time=0.020..0.020 rows=2 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=2
+              ->  Hash Join  (cost=11.00..22.27 rows=3 width=1362) (actual time=0.017..0.019 rows=2 loops=1)
+                    Hash Cond: (s.student_id = r.student_id)
+                    Buffers: shared hit=2
+                    ->  Seq Scan on students s  (cost=0.00..10.90 rows=90 width=326) (actual time=0.002..0.003 rows=3 loops=1)
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=10.96..10.96 rows=3 width=1052) (actual time=0.008..0.008 rows=2 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                          Buffers: shared hit=1
+                          ->  Seq Scan on item_reports r  (cost=0.00..10.96 rows=3 width=1052) (actual time=0.004..0.006 rows=2 loops=1)
+                                Filter: ((status)::text = ANY ('{OPEN,MATCHED,RESOLVED}'::text[]))
+                                Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=15
+Planning Time: 0.131 ms
+Execution Time: 0.068 ms
+
+===== R3 RUN 2 =====
+Sort  (cost=36.76..36.77 rows=3 width=1572) (actual time=0.027..0.028 rows=2 loops=1)
+  Sort Key: r.reported_at DESC, r.report_id DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=9
+  ->  Hash Join  (cost=22.30..36.73 rows=3 width=1572) (actual time=0.015..0.016 rows=2 loops=1)
+        Hash Cond: (c.category_id = r.category_id)
+        Buffers: shared hit=3
+        ->  Seq Scan on categories c  (cost=0.00..13.20 rows=320 width=226) (actual time=0.002..0.002 rows=1 loops=1)
+              Buffers: shared hit=1
+        ->  Hash  (cost=22.27..22.27 rows=3 width=1362) (actual time=0.012..0.012 rows=2 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=2
+              ->  Hash Join  (cost=11.00..22.27 rows=3 width=1362) (actual time=0.010..0.011 rows=2 loops=1)
+                    Hash Cond: (s.student_id = r.student_id)
+                    Buffers: shared hit=2
+                    ->  Seq Scan on students s  (cost=0.00..10.90 rows=90 width=326) (actual time=0.001..0.002 rows=3 loops=1)
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=10.96..10.96 rows=3 width=1052) (actual time=0.005..0.005 rows=2 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                          Buffers: shared hit=1
+                          ->  Seq Scan on item_reports r  (cost=0.00..10.96 rows=3 width=1052) (actual time=0.003..0.003 rows=2 loops=1)
+                                Filter: ((status)::text = ANY ('{OPEN,MATCHED,RESOLVED}'::text[]))
+                                Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=15
+Planning Time: 0.080 ms
+Execution Time: 0.040 ms
+
+===== R3 RUN 3 =====
+Sort  (cost=36.76..36.77 rows=3 width=1572) (actual time=0.017..0.018 rows=2 loops=1)
+  Sort Key: r.reported_at DESC, r.report_id DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=9
+  ->  Hash Join  (cost=22.30..36.73 rows=3 width=1572) (actual time=0.011..0.011 rows=2 loops=1)
+        Hash Cond: (c.category_id = r.category_id)
+        Buffers: shared hit=3
+        ->  Seq Scan on categories c  (cost=0.00..13.20 rows=320 width=226) (actual time=0.001..0.001 rows=1 loops=1)
+              Buffers: shared hit=1
+        ->  Hash  (cost=22.27..22.27 rows=3 width=1362) (actual time=0.009..0.009 rows=2 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=2
+              ->  Hash Join  (cost=11.00..22.27 rows=3 width=1362) (actual time=0.007..0.008 rows=2 loops=1)
+                    Hash Cond: (s.student_id = r.student_id)
+                    Buffers: shared hit=2
+                    ->  Seq Scan on students s  (cost=0.00..10.90 rows=90 width=326) (actual time=0.001..0.001 rows=3 loops=1)
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=10.96..10.96 rows=3 width=1052) (actual time=0.003..0.003 rows=2 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                          Buffers: shared hit=1
+                          ->  Seq Scan on item_reports r  (cost=0.00..10.96 rows=3 width=1052) (actual time=0.001..0.002 rows=2 loops=1)
+                                Filter: ((status)::text = ANY ('{OPEN,MATCHED,RESOLVED}'::text[]))
+                                Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=15
+Planning Time: 0.043 ms
+Execution Time: 0.025 ms

@@ -1,0 +1,47 @@
+===== W6 RUN 1 =====
+Insert on item_reports  (cost=0.29..16.34 rows=1 width=1116) (actual time=0.030..0.030 rows=1 loops=1)
+  Buffers: shared hit=7
+  ->  Nested Loop  (cost=0.29..16.34 rows=1 width=1116) (actual time=0.007..0.007 rows=1 loops=1)
+        Buffers: shared hit=5
+        ->  Index Scan using students_college_email_key on students s  (cost=0.14..8.16 rows=1 width=8) (actual time=0.003..0.004 rows=1 loops=1)
+              Index Cond: ((college_email)::text = 'cp3.found@example.invalid'::text)
+              Buffers: shared hit=2
+        ->  Index Scan using categories_category_name_key on categories c  (cost=0.15..8.17 rows=1 width=8) (actual time=0.001..0.001 rows=1 loops=1)
+              Index Cond: ((category_name)::text = 'CP3 Demo Accessories'::text)
+              Buffers: shared hit=2
+Planning Time: 0.037 ms
+Trigger for constraint item_reports_student_id_fkey: time=0.021 calls=1
+Trigger for constraint item_reports_category_id_fkey: time=0.016 calls=1
+Execution Time: 0.079 ms
+
+===== W6 RUN 2 =====
+Insert on item_reports  (cost=0.29..16.34 rows=1 width=1116) (actual time=0.039..0.040 rows=1 loops=1)
+  Buffers: shared hit=7
+  ->  Nested Loop  (cost=0.29..16.34 rows=1 width=1116) (actual time=0.008..0.009 rows=1 loops=1)
+        Buffers: shared hit=5
+        ->  Index Scan using students_college_email_key on students s  (cost=0.14..8.16 rows=1 width=8) (actual time=0.004..0.004 rows=1 loops=1)
+              Index Cond: ((college_email)::text = 'cp3.found@example.invalid'::text)
+              Buffers: shared hit=2
+        ->  Index Scan using categories_category_name_key on categories c  (cost=0.15..8.17 rows=1 width=8) (actual time=0.001..0.001 rows=1 loops=1)
+              Index Cond: ((category_name)::text = 'CP3 Demo Accessories'::text)
+              Buffers: shared hit=2
+Planning Time: 0.047 ms
+Trigger for constraint item_reports_student_id_fkey: time=0.032 calls=1
+Trigger for constraint item_reports_category_id_fkey: time=0.024 calls=1
+Execution Time: 0.110 ms
+
+===== W6 RUN 3 =====
+Insert on item_reports  (cost=0.29..16.34 rows=1 width=1116) (actual time=0.034..0.034 rows=1 loops=1)
+  Buffers: shared hit=7
+  ->  Nested Loop  (cost=0.29..16.34 rows=1 width=1116) (actual time=0.007..0.008 rows=1 loops=1)
+        Buffers: shared hit=5
+        ->  Index Scan using students_college_email_key on students s  (cost=0.14..8.16 rows=1 width=8) (actual time=0.003..0.003 rows=1 loops=1)
+              Index Cond: ((college_email)::text = 'cp3.found@example.invalid'::text)
+              Buffers: shared hit=2
+        ->  Index Scan using categories_category_name_key on categories c  (cost=0.15..8.17 rows=1 width=8) (actual time=0.001..0.001 rows=1 loops=1)
+              Index Cond: ((category_name)::text = 'CP3 Demo Accessories'::text)
+              Buffers: shared hit=2
+Planning Time: 0.038 ms
+Trigger for constraint item_reports_student_id_fkey: time=0.024 calls=1
+Trigger for constraint item_reports_category_id_fkey: time=0.018 calls=1
+Execution Time: 0.088 ms
